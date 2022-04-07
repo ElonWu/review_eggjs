@@ -17,7 +17,6 @@ import 'egg-view';
 import 'egg-redis';
 import 'egg-session-redis';
 import 'egg-validate';
-import 'egg-socket.io';
 import 'egg-sequelize';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {

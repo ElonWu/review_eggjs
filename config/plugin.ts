@@ -14,7 +14,7 @@ const plugin: EggPlugin = {
     package: 'egg-validate',
   },
   io: {
-    enable: true,
+    enable: false,
     package: 'egg-socket.io',
   },
   sequelize: {
