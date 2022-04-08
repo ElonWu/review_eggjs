@@ -31,24 +31,40 @@ export default class UserController extends Controller {
   async login() {
     const { ctx } = this;
 
-    const userId = ctx.session.userId;
-
     let user;
     // 已经登录 通过 userId 查询
-    if (userId) {
-      user = await ctx.model.User.findUser(userId);
+    const loginUser = ctx.session.user?.id;
+    if (loginUser) {
+      user = loginUser;
     }
     // 通过登录信息查询
     else {
-      ctx.validate(CreateRule, ctx.request.body);
-      user = await ctx.model.User.login(ctx.request.body);
+      // 登录信息 格式验证失败
+      const validateError = ctx.helper.validateError(
+        ctx,
+        CreateRule,
+        ctx.request.body,
+      );
 
-      if (user?.id) ctx.session.userId = user.id;
+      if (validateError) {
+        ctx.body = {
+          message: 'error',
+          errors: validateError,
+        };
+        return;
+      }
+
+      // 登录信息查询
+      user = await ctx.model.User.login(ctx.request.body);
+      // 存储 session
+      if (user) ctx.session.user = user;
     }
 
-    ctx.body = {
-      message: 'success',
-      data: user,
-    };
+    if (!user) {
+      ctx.status = 401;
+      ctx.body = { message: 'error', error: `未查询到当前用户` };
+    } else {
+      ctx.body = { message: 'success', data: user };
+    }
   }
 }
