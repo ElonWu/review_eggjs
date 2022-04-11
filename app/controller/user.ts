@@ -33,7 +33,7 @@ export default class UserController extends Controller {
 
     let user;
     // 已经登录 通过 userId 查询
-    const loginUser = ctx.session.user?.id;
+    const loginUser = ctx.session.user;
     if (loginUser) {
       user = loginUser;
     }
