@@ -2,10 +2,12 @@
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
+import ExportTodo from '../../../app/model/todo';
 import ExportUser from '../../../app/model/user';
 
 declare module 'egg' {
   interface IModel {
+    Todo: ReturnType<typeof ExportTodo>;
     User: ReturnType<typeof ExportUser>;
   }
 }
