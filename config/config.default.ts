@@ -9,7 +9,7 @@ export default (appInfo: EggAppInfo) => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + process.env.APP_KEY;
 
-  config.middleware = ['logger'];
+  config.middleware = ['logger', 'auth'];
 
   const bizConfig = {
     // session
@@ -20,6 +20,12 @@ export default (appInfo: EggAppInfo) => {
     // 自定义中间件
     logger: {
       warningThreshold: 500,
+    },
+    auth: {
+      ignore: [
+        ['POST', '/user'],
+        ['POST', '/user/login'],
+      ],
     },
 
     // 使用当前版本 sequelize
