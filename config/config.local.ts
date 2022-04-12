@@ -13,8 +13,8 @@ export default () => {
       database: 'todo',
       host: 'localhost',
       port: 3306,
-      username: process.env.LOCALE_MYSQL_USERNAME,
-      password: process.env.LOCALE_MYSQL_PASSWORD,
+      username: process.env.LOCAL_MYSQL_USERNAME,
+      password: process.env.LOCAL_MYSQL_PASSWORD,
       define: {
         freezeTableName: false,
         underscored: true,
